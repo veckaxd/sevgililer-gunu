@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sevgililer Günümüz 💖</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* YILDIZLAR */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite ease-in-out alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
+
+#container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 20px;
+}
+
+img {
+    max-width: 90%;
+    max-height: 70vh;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255,0,100,0.8);
+}
+
+#message {
+    display: none;
+    opacity: 0;
+    font-size: 18px;
+    white-space: pre-line;
+    max-width: 800px;
+    line-height: 1.6;
+    transition: opacity 4s ease-in-out;
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<audio id="music" src="ihtiras.mp3" autoplay></audio>
+
+<div id="container" onclick="nextPhoto()">
+    <h1 id="startText">Tıkla Aşkım ❤️</h1>
+    <img id="photo" style="display:none;">
+    <div id="message"></div>
+</div>
+
+<script>
+// YILDIZ OLUŞTURMA
+const starsContainer = document.getElementById("stars");
+for (let i = 0; i < 300; i++) {
+    let star = document.createElement("div");
+    star.className = "star";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.animationDuration = (Math.random() * 3 + 1) + "s";
+    starsContainer.appendChild(star);
+}
+
+let current = 0;
+let totalPhotos = 10;
+
+function nextPhoto() {
+    const music = document.getElementById("music");
+    music.play();
+
+    const startText = document.getElementById("startText");
+    const photo = document.getElementById("photo");
+    const message = document.getElementById("message");
+
+    startText.style.display = "none";
+
+    if (current < totalPhotos) {
+        photo.src = (current + 1) + ".jpg";
+        photo.style.display = "block";
+        current++;
+    } else {
+        photo.style.display = "none";
+        message.style.display = "block";
+        message.innerText = `BEN SENİN İÇİN ÖLÜRÜM... OH, BEN SENİN İÇİN ÖLDÜRÜRÜM!
+TAMAM PEKİ, BEN SENİN İÇİN NAZİK OLURUM.
+SENİN İÇİN, KARANLIK DOĞAMIN ŞİDDETE ÇAĞIRAN FISILTISINI SUSTURURUM.
+KAHVENİ VE KAHVALTINI HAZIRLAMAK İÇİN HER SABAH BİR SAAT ERKEN UYANIRIM.
+HER NE OLURSA OLSUN SENİN YANINDA DURURUM.
+SEN KENDİNİ GÜVENDE HİSSEDENE KADAR IŞIĞI AÇIK BIRAKIRIM VE SENİ, SEN HUZUR BULANA DEK SARIP SARMALARIM.
+ELBETTE GEREKTİĞİNDE GÜÇLÜ OLURUM VE SAVAŞMAM GEREKİYORSA SAVAŞIRIM.
+AMA SANA OLAN AŞKIMIN DÜŞÜNCESİ BİLE BENİ VAHŞİ OLMAKTAN UZAKLAŞTIRIYOR.`;
+
+        setTimeout(() => {
+            message.style.opacity = "1";
+        }, 100);
+    }
+}
+</script>
+
+</body>
+</html>
